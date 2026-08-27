@@ -1,0 +1,46 @@
+{
+  "_schema": "turkic-etymology-seed/v1",
+  "_provenance": {
+    "source": "Kubbealtı Lugatı & Lehce-i Osmânî",
+    "kind": "seed",
+    "note": "Elle derlenmiş TOHUM (seed) veridir; canlı bir servis DEĞİLDİR. Motor çıktısında `origin: \"seed\"` olarak işaretlenir.",
+    "entry_count": 7
+  },
+  "entries": {
+    "deniz": {
+      "word_osmanli": "دڭز / deniz",
+      "meaning": "Deniz, umman, büyük su kütlesi. Kubbealtı Lugatı: (Eski Türkçe teŋiz).",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "su": {
+      "word_osmanli": "صو / su",
+      "meaning": "Su, ma, ab. Kubbealtı Lugatı: (Eski Türkçe sub / suv).",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "göz": {
+      "word_osmanli": "كوز / göz",
+      "meaning": "Göz, basar, ayn. Kubbealtı Lugatı: (Eski Türkçe göz / köz).",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "el": {
+      "word_osmanli": "يد / el / elig",
+      "meaning": "1. Tutma organı (Eski Türkçe elig). 2. Devlet, memleket.",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "ayak": {
+      "word_osmanli": "ایاق / ayak",
+      "meaning": "Ayak, kadem. Kubbealtı Lugatı: (Eski Türkçe adak).",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "kut": {
+      "word_osmanli": "قوت / kut",
+      "meaning": "1. Tanrı lütfu, iyi talih, kut. 2. Can, gıda, azık.",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    },
+    "tengri": {
+      "word_osmanli": "تڭرى / tanrı",
+      "meaning": "Tanrı, ilah, Huda, Halık. Kubbealtı Lugatı: (Eski Türkçe teŋri).",
+      "source": "Kubbealtı Lugatı & Ahmet Vefik Paşa (Lehçe-i Osmanî)"
+    }
+  }
+}

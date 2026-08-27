@@ -1,0 +1,9 @@
+{
+  "name": "turkic-etymology-web",
+  "version": "2.0.0",
+  "description": "Türki Diller Etimoloji Araştırma Motoru — Görsel Web Paneli (statik HTML)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 ."
+  }
+}

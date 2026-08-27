@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türki Diller Etimoloji Araştırma Motoru & Canlı Çizge Paneli</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Cytoscape.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"
+            integrity="sha384-J7Q85oZE4GJ/e7+n2aOQsLXfDwwfnA8S2nZAL5BpFsfpCF84zQD7LroZ/dMnLgex"
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        #cy {
+            width: 100%;
+            height: 480px;
+            background: #060911;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .terminal-log {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Header / Navbar -->
+    <header class="glass sticky top-0 z-50 px-6 py-4 mb-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-teal-500 to-cyan-400 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-teal-500/25">
+                    🏛️
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-xl tracking-tight text-white">Türki Diller Etimoloji Motoru</h1>
+                    <p class="text-xs text-teal-400/90 font-medium">Hesaplamalı Tarihsel Dilbilim & Yapay Zeka Hakemlik Paneli</p>
+                </div>
+            </div>
+
+            <!-- Search Bar Form -->
+            <form id="searchForm" class="flex items-center gap-2.5 w-full md:w-auto min-w-[360px]">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" placeholder="Köken aramak için kelime yazın (örn: su, bardak, göz, deniz)..." 
+                        class="w-full px-4 py-2.5 pl-10 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-teal-500 transition-all shadow-inner">
+                    <span class="absolute left-3.5 top-3 text-slate-400 text-sm">🔍</span>
+                </div>
+                <label class="flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass cursor-pointer text-xs font-medium text-slate-300 hover:text-white transition-colors">
+                    <input type="checkbox" id="aiToggle" class="rounded accent-teal-500">
+                    <span>🤖 AI Ajan</span>
+                </label>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-teal-500/20 flex-shrink-0">
+                    Ara
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-6">
+
+        <!-- Welcome Banner -->
+        <div id="welcomeBanner" class="glass rounded-3xl p-8 mb-8 text-center border-dashed border-teal-500/30">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 text-xs font-semibold mb-3 border border-teal-500/20">
+                ⚡ %100 Canlı ve Jenerik Hesaplamalı Dilbilim Mimarisi
+            </div>
+            <h2 class="font-heading text-3xl font-extrabold text-white mb-3">Türki Diller Etimoloji Araştırma ve Çizge Platformu</h2>
+            <p class="text-slate-400 text-sm max-w-2xl mx-auto mb-6 leading-relaxed">
+                PanPhon 21-boyutlu IPA artikülatör fonetik vektörleri, LingPy SCA ses sınıfları hizalaması, Sentence-Transformers diyakronik semantik manifoldlar ve A-HVP akademik hakemlik protokolü ile kelimelerin kökenini adım adım inceleyin.
+            </p>
+            <div class="flex flex-wrap justify-center gap-2.5">
+                <button onclick="quickSearch('bardak')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 bardak</button>
+                <button onclick="quickSearch('su')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 su</button>
+                <button onclick="quickSearch('göz')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 göz</button>
+                <button onclick="quickSearch('deniz')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 deniz</button>
+                <button onclick="quickSearch('bilişim')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 bilişim</button>
+                <button onclick="quickSearch('efendi')" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-teal-500/20 hover:border-teal-500/40 border border-slate-700/60 text-xs font-medium text-teal-300 transition-all">🔍 efendi</button>
+            </div>
+        </div>
+
+        <!-- Adım Adım Canlı Süreç ve Araştırma Log Paneli (Step-by-Step Progress Console) -->
+        <div id="progressPanel" class="hidden glass rounded-3xl p-6 mb-8 border-t-4 border-t-teal-500 shadow-2xl">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-teal-400 animate-ping"></div>
+                    <h3 class="font-heading font-bold text-lg text-white">⚙️ Adım Adım Canlı Etimolojik İnceleme & İşlem Akışı</h3>
+                </div>
+                <span id="stepCounter" class="text-xs font-mono px-3 py-1 rounded-full bg-slate-900 text-teal-400 border border-teal-500/30">0/6 Adım</span>
+            </div>
+
+            <!-- Steps Progress Bar -->
+            <div class="w-full bg-slate-900 rounded-full h-2 mb-6 overflow-hidden border border-slate-800">
+                <div id="progressBar" class="bg-gradient-to-r from-teal-500 to-cyan-400 h-2 rounded-full transition-all duration-500 w-0"></div>
+            </div>
+
+            <!-- Terminal Style Execution Log Box -->
+            <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800/80 space-y-2.5 terminal-log text-xs" id="terminalLogs">
+                <div class="text-slate-500 italic">Soru araması başlatılıyor...</div>
+            </div>
+        </div>
+
+        <!-- Final Etymology Report Container -->
+        <div id="resultsContainer" class="hidden space-y-8">
+
+            <!-- Card 1: Overview & A-HVP Referee Report -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Word Summary -->
+                <div class="glass rounded-3xl p-6 lg:col-span-1 border-l-4 border-l-teal-500">
+                    <div class="flex items-center justify-between mb-3">
+                        <span id="cacheBadge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">Canlı Analiz</span>
+                        <span id="langCountBadge" class="text-[10px] font-bold px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">0 Lehçe</span>
+                    </div>
+                    <h2 id="resQueryWord" class="font-heading text-4xl font-extrabold text-white mt-1 capitalize tracking-tight">---</h2>
+                    <p id="resMorphology" class="text-xs text-slate-400 mt-1">Morfoloji: Yalın Kök</p>
+                    
+                    <div class="mt-6 space-y-4 pt-4 border-t border-slate-800">
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Ana Kök / Rekonstrüksiyon</span>
+                            <span id="resProtoRoot" class="text-xl font-bold text-teal-300 font-heading">---</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Tarihsel Anlam</span>
+                            <span id="resMeaning" class="text-sm text-slate-200 block font-medium">---</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Kaynak Portföyü</span>
+                            <span id="resSources" class="text-xs text-slate-400 block leading-relaxed">---</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A-HVP Referee Card -->
+                <div class="glass rounded-3xl p-6 lg:col-span-2">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-xl">⚖️</span>
+                            <div>
+                                <h3 class="font-heading font-bold text-lg text-white">A-HVP (AI Hypothesis Validation Protocol) Hakem Raporu</h3>
+                                <p class="text-xs text-slate-400">5 Aşamalı Bilimsel Doğrulama ve Anakronizm Testi</p>
+                            </div>
+                        </div>
+                        <span id="ahvpBadge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🟢 VALIDATED</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">Güven Skoru</span>
+                            <span id="ahvpScore" class="text-2xl font-extrabold text-teal-300 font-heading">—</span>
+                        </div>
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">Kanıt Kapsamı</span>
+                            <span id="ahvpCoverage" class="text-2xl font-extrabold text-amber-300 font-heading">—</span>
+                        </div>
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">Ölçülemeyen Aşamalar</span>
+                            <span id="ahvpMissing" class="text-xs font-bold text-slate-300 block mt-1">—</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">1. Fonetik Halka</span>
+                            <span id="stagePhonetic" class="text-xs font-bold text-slate-400 block">—</span>
+                        </div>
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">2. Zaman Kilidi</span>
+                            <span id="stageTime" class="text-xs font-bold text-slate-400 block">—</span>
+                        </div>
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">3. Semantik Mesafe</span>
+                            <span id="stageSemantic" class="text-xs font-bold text-slate-400 block">—</span>
+                        </div>
+                        <div class="bg-slate-900/80 rounded-2xl p-3.5 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block mb-1">4. Akraba Triangulation</span>
+                            <span id="stageCognate" class="text-xs font-bold text-slate-400 block">—</span>
+                        </div>
+                    </div>
+
+                    <div id="rejectionContainer" class="hidden p-4 rounded-2xl bg-red-900/20 border border-red-500/30 text-xs text-red-300">
+                        <strong class="block mb-1 font-bold">❌ Akademik Hakem Red Gerekçeleri:</strong>
+                        <ul id="rejectionList" class="list-disc list-inside space-y-1"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Interactive Cytoscape Graph -->
+            <div class="glass rounded-3xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-lg text-white">🌐 İnteraktif Etimoloji & Akraba Dil Çizgesi (Graph Visualizer)</h3>
+                        <p class="text-xs text-slate-400">Neo4j Uyumlu Düğüm ve Kenar Şeması (Ata Kök, Hedef Kelime, Akrabalar ve Tanıklamalar)</p>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full bg-slate-900 text-teal-300 font-mono border border-teal-500/30" id="graphNodeCount">0 Düğüm</span>
+                </div>
+                <div id="cy"></div>
+            </div>
+
+            <!-- Card 3: 25 Turkic Languages Grid -->
+            <div class="glass rounded-3xl p-6">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                    <div>
+                        <h3 class="font-heading font-bold text-lg text-white mb-0.5">🌍 TÜRKİ DİLLERDEKİ ANLAMLARI VE KARŞILIKLARI</h3>
+                        <p class="text-xs text-slate-400">25 Türki dil katmanında tespit edilen fonetik ses değişimleri ve anlamlar</p>
+                    </div>
+                    <span class="text-xs text-teal-400 font-mono" id="turkicSpreadRatio">%0 Lehçe Yayılımı</span>
+                </div>
+                <div id="turkicGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+            </div>
+
+            <!-- Card 4: AI Agent Reasoning Synthesis -->
+            <div id="aiAgentCard" class="hidden glass rounded-3xl p-6 border-l-4 border-l-cyan-400">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xl">🤖</span>
+                    <h3 class="font-heading font-bold text-lg text-cyan-300">Qwen2.5 Otonom Bilimsel Ajan Akıl Yürütme & Sentezi</h3>
+                </div>
+                <p id="aiAgentText" class="text-sm text-slate-300 leading-relaxed whitespace-pre-line font-normal"></p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // API adresi: ?api= sorgu parametresiyle ezilebilir
+        const API_URL = new URLSearchParams(location.search).get("api")
+            || "http://127.0.0.1:8000/api";
+
+        /**
+         * HTML kaçışı — kazınmış içerik (Nişanyan, TDK, İSAM, DuckDuckGo)
+         * doğrudan innerHTML'e basılıyordu; kaynak sitedeki bir
+         * <img src=x onerror=...> yükü XSS'e dönüşüyordu.
+         */
+        function esc(value) {
+            return String(value ?? "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            })[c]);
+        }
+        let cyInstance = null;
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const q = document.getElementById('searchInput').value.trim();
+            if (q) performSearch(q);
+        });
+
+        function quickSearch(word) {
+            document.getElementById('searchInput').value = word;
+            performSearch(word);
+        }
+
+        async function performSearch(word) {
+            const ai = document.getElementById('aiToggle').checked;
+
+            document.getElementById('welcomeBanner').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('progressPanel').classList.remove('hidden');
+
+            const logsDiv = document.getElementById('terminalLogs');
+            const pBar = document.getElementById('progressBar');
+            const stepCounter = document.getElementById('stepCounter');
+
+            logsDiv.innerHTML = "";
+            pBar.style.width = "0%";
+
+            function addLogLine(icon, title, desc, stepNum) {
+                pBar.style.width = `${(stepNum / 6) * 100}%`;
+                stepCounter.textContent = `${stepNum}/6 Adım`;
+                const line = document.createElement('div');
+                line.className = "flex items-start gap-2.5 text-slate-300 animate-fade-in";
+                line.innerHTML = `<span class="text-teal-400 font-bold">${esc(icon)}</span> <div><strong class="text-teal-300">${esc(title)}:</strong> <span class="text-slate-400">${esc(desc)}</span></div>`;
+                logsDiv.appendChild(line);
+                logsDiv.scrollTop = logsDiv.scrollHeight;
+            }
+
+            // Gerçek telemetri: sunucudan dönen diagnostics.stage_timings_ms
+            // kullanılır. Eskiden burada 6 adımlık sahte bir setTimeout
+            // simülasyonu vardı; gösterilen adımların gerçekle ilgisi yoktu.
+            addLogLine("🔎", "Arama başlatıldı", `'${esc(word)}' için veri katmanı sorgulanıyor…`, 1);
+            const t0 = performance.now();
+
+            try {
+                const resp = await fetch(`${API_URL}/search?word=${encodeURIComponent(word)}&ai=${ai}`);
+                if (!resp.ok) throw new Error("REST API Sunucu Yanıt Vermedi");
+                const data = await resp.json();
+
+                renderTelemetry(data, performance.now() - t0);
+                renderResults(data);
+            } catch (err) {
+                addLogLine("❌", "Bağlantı hatası",
+                    `REST API sunucusuna ulaşılamadı (${esc(err.message)}). ` +
+                    `\`python -m engine.server\` çalışıyor mu?`, 6);
+            }
+        }
+
+        /** Sunucudan gelen GERÇEK aşama sürelerini ve kaynak durumlarını gösterir. */
+        function renderTelemetry(data, wallMs) {
+            const diag = data.diagnostics || {};
+            const timings = diag.stage_timings_ms || {};
+            const sources = diag.sources || {};
+
+            const labels = {
+                morphology: ["🧩", "Morfolojik kök ayrıştırma"],
+                fetch: ["🌐", "Paralel veri katmanı taraması"],
+                nlp: ["🧬", "NLP: hizalama, rekonstrüksiyon, A-HVP"],
+                ai_enrichment: ["🤖", "Yapay zekâ sentezi"],
+            };
+
+            const okCount = Object.values(sources).filter(s => s.status === "ok").length;
+            const total = Object.keys(sources).length;
+
+            let step = 2;
+            for (const [key, [icon, label]] of Object.entries(labels)) {
+                if (timings[key] === undefined) continue;
+                let detail = `${timings[key]} ms`;
+                if (key === "fetch") {
+                    detail += ` · ${okCount}/${total} kaynak veri döndürdü`;
+                    if (diag.variants_used) detail += ` · ${diag.variants_used.length} varyant`;
+                }
+                addLogLine(icon, label, detail, step++);
+            }
+
+            if (data.from_cache) {
+                addLogLine("⚡", "Önbellekten döndürüldü", `${Math.round(wallMs)} ms`, 6);
+            } else {
+                addLogLine("✅", "Tamamlandı", `Toplam ${timings.total ?? Math.round(wallMs)} ms`, 6);
+            }
+
+            // Veri döndürmeyen / hata veren kaynakları açıkça bildir
+            const failed = Object.entries(sources).filter(([, s]) => s.status === "error");
+            if (failed.length) {
+                addLogLine("⚠️", `${failed.length} kaynak hata verdi`,
+                    failed.map(([n]) => esc(n)).join(", ").slice(0, 220), 6);
+            }
+        }
+
+        function renderResults(data) {
+            document.getElementById('resultsContainer').classList.remove('hidden');
+
+            // 1. Basic Info
+            document.getElementById('resQueryWord').textContent = data.query_word || "";
+            document.getElementById('resMorphology').textContent = "Morfoloji: " + (data.morphology || "Yalın Kök");
+            document.getElementById('resProtoRoot').textContent = (data.root && data.root.proto_turkic) ? data.root.proto_turkic : "Bilinmiyor";
+            document.getElementById('resMeaning').textContent = (data.root && data.root.meaning) ? data.root.meaning : "Bilinmiyor";
+            document.getElementById('resSources').textContent = (data.sources || []).join(", ") || "Çeşitli Lügatlar";
+
+            document.getElementById('cacheBadge').textContent = data.from_cache ? "Önbellek Kaydı" : "Canlı Araştırma";
+
+            const turkicList = data.turkic_languages || [];
+            document.getElementById('langCountBadge').textContent = `${turkicList.length} Dil/Katman`;
+
+            // 2. A-HVP
+            const nlp = data.nlp_analysis || {};
+            const hyp = nlp.proven_hypothesis || {};
+            const val = hyp.validation_report || {};
+
+            document.getElementById('ahvpBadge').textContent = val.badge || "⚪ Hipotez üretilmedi";
+            document.getElementById('ahvpScore').textContent = val.score_percentage || "—";
+            document.getElementById('ahvpCoverage').textContent =
+                val.evidence_coverage !== undefined ? `%${Math.round(val.evidence_coverage * 100)}` : "—";
+
+            const missing = val.missing_evidence || [];
+            const missingTr = { chronology: "Kronoloji", semantic: "Semantik",
+                                phonetic: "Fonetik", triangulation: "Triangulation" };
+            document.getElementById('ahvpMissing').textContent =
+                missing.length ? missing.map(m => missingTr[m] || m).join(", ") : "yok — tam kapsam";
+
+            const stages = val.stage_breakdown || {};
+            /** Kanıt YOKLUĞU ile İHLAL'i ayırt eder (eskiden ikisi de "❌" görünüyordu). */
+            function stageLabel(stage) {
+                if (!stage || stage.evidence_available === false) return ["⚪ KANIT YOK", "text-slate-500"];
+                if (stage.is_valid === true) return ["✅ GEÇTİ", "text-emerald-400"];
+                if (stage.is_valid === false) return ["❌ İHLAL", "text-red-400"];
+                return ["—", "text-slate-500"];
+            }
+            for (const [elId, key] of [
+                ["stagePhonetic", "stage1_phonetic_chain"],
+                ["stageTime", "stage2_time_lock"],
+                ["stageSemantic", "stage3_semantic_drift"],
+                ["stageCognate", "stage4_cognate_triangulation"],
+            ]) {
+                const [text, cls] = stageLabel(stages[key]);
+                const el = document.getElementById(elId);
+                el.textContent = text;
+                el.className = `text-xs font-bold block ${cls}`;
+            }
+
+            const rejections = val.rejection_reasons || [];
+            const rejCont = document.getElementById('rejectionContainer');
+            const rejList = document.getElementById('rejectionList');
+            if (rejections.length > 0) {
+                rejCont.classList.remove('hidden');
+                rejList.innerHTML = rejections.map(r => `<li>${esc(r)}</li>`).join("");
+            } else {
+                rejCont.classList.add('hidden');
+            }
+
+            // 3. Turkic Languages Grid & Spreading Ratio
+            const cogEval = nlp.cognate_distribution || {};
+            const ratioPercent = Math.round((cogEval.spreading_ratio || 0) * 100);
+            document.getElementById('turkicSpreadRatio').textContent = `%${ratioPercent} Lehçe Yayılımı`;
+
+            const grid = document.getElementById('turkicGrid');
+            if (turkicList.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-xs text-slate-500 italic">Türki diller katmanında kayıt bulunamadı.</p>`;
+            } else {
+                grid.innerHTML = turkicList.map(item => `
+                    <div class="bg-slate-900/70 rounded-2xl p-4 border border-slate-800/90 hover:border-teal-500/40 transition-all hover:bg-slate-900">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-teal-400 block mb-1">${esc(item.lang_name)}</span>
+                        <span class="font-bold text-base text-white block">${esc(item.word)}</span>
+                        <span class="text-xs text-slate-300 block mt-1.5 truncate">${esc(item.meaning || "N/A")}</span>
+                        <span class="text-[9px] uppercase tracking-wider block mt-1 ${item.origin === "seed" ? "text-amber-400/80" : "text-emerald-400/80"}">${item.origin === "seed" ? "tohum veri" : "canlı kaynak"}</span>
+                        ${item.phonetic_shift ? `<span class="text-[10px] text-teal-300/80 block mt-2 pt-2 border-t border-slate-800/60 italic">${esc(item.phonetic_shift)}</span>` : ""}
+                    </div>
+                `).join("");
+            }
+
+            // 4. AI Agent
+            const aiText = data.ai_agent_enrichment;
+            const aiCard = document.getElementById('aiAgentCard');
+            if (aiText) {
+                aiCard.classList.remove('hidden');
+                document.getElementById('aiAgentText').textContent = aiText;
+            } else {
+                aiCard.classList.add('hidden');
+            }
+
+            // 5. Render Cytoscape Graph
+            renderGraph(data.graph_database || {});
+        }
+
+        function renderGraph(graphDb) {
+            const nodeCount = graphDb.node_count || 0;
+            document.getElementById('graphNodeCount').textContent = `${nodeCount} Düğüm`;
+
+            const elements = (graphDb.cytoscape_format && graphDb.cytoscape_format.elements) ? graphDb.cytoscape_format.elements : [];
+
+            if (cyInstance) cyInstance.destroy();
+
+            cyInstance = cytoscape({
+                container: document.getElementById('cy'),
+                elements: elements,
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'background-color': '#14b8a6',
+                            'label': 'data(label)',
+                            'color': '#f8fafc',
+                            'font-size': '11px',
+                            'font-family': 'Inter',
+                            'text-valign': 'bottom',
+                            'text-margin-y': '6px',
+                            'width': '34px',
+                            'height': '34px'
+                        }
+                    },
+                    {
+                        selector: 'node[type = "WordForm"][category = "ProtoRoot"]',
+                        style: {
+                            'background-color': '#f59e0b',
+                            'width': '44px',
+                            'height': '44px'
+                        }
+                    },
+                    {
+                        selector: 'node[type = "WordForm"][category = "TargetWord"]',
+                        style: {
+                            'background-color': '#06b6d4',
+                            'width': '48px',
+                            'height': '48px'
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#334155',
+                            'target-arrow-color': '#334155',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier',
+                            'label': 'data(label)',
+                            'color': '#64748b',
+                            'font-size': '9px'
+                        }
+                    }
+                ],
+                layout: {
+                    name: 'cose',
+                    animate: true
+                }
+            });
+        }
+    </script>
+</body>
+</html>

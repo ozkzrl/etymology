@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turkic-etymology-engine"
+version = "3.0.0"
+description = "Türki Diller Etimoloji Araştırma Motoru"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+# Hesaplamalı fonoloji. NOT: panphon zinciri `editdistance` C eklentisini içerir;
+# Python 3.14 için hazır wheel yoktur, sdist'ten derlenir (macOS'ta Xcode CLT gerekir).
+phon = [
+    "lingpy>=2.6.13",
+    "panphon>=0.20",
+    "epitran>=1.24",
+]
+pdf = ["pdfminer.six>=20221105"]
+# Ağır (torch ~2-3 GB). Bilinçli olarak varsayılan DIŞINDA tutulur.
+semantic = ["sentence-transformers>=2.2"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "responses>=0.25",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+etimoloji = "engine.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["engine*"]
+
+[tool.pytest.ini_options]
+testpaths = ["engine/tests"]
+filterwarnings = ["ignore::ResourceWarning"]
+
+[tool.coverage.run]
+source = ["engine"]
+omit = ["engine/tests/*"]

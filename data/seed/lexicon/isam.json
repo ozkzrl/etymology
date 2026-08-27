@@ -1,0 +1,19 @@
+{
+  "_schema": "turkic-etymology-seed/v1",
+  "_provenance": {
+    "source": "TDV İslâm Ansiklopedisi (İSAM)",
+    "kind": "seed",
+    "note": "Elle derlenmiş TOHUM (seed) veridir; canlı bir servis DEĞİLDİR. Motor çıktısında `origin: \"seed\"` olarak işaretlenir.",
+    "entry_count": 8
+  },
+  "entries": {
+    "tanrı": "TDV İSAM Ansiklopedisi (Cilt 40, s. 473): Doğu Hunları (M.Ö. III. yüzyıl) zamanından itibaren kullanıldığı bilinen ten͡gri kelimesinin kökeniyle ilgili etimolojik sözlüklerde gökyüzü ve ilah karşılığı. Orhun N1: Teŋri kutı Türk Kültigin.",
+    "tengri": "TDV İSAM Ansiklopedisi (Cilt 40, s. 473): Doğu Hunları (M.Ö. III. yy) Hunca ten͡gri kelimesi. Orhun Yazıtları teŋri.",
+    "kut": "TDV İSAM Ansiklopedisi (Cilt 26, s. 450): Orhun Yazıtları ve Karahanlı metinlerinde kut 'ilahi lütuf, saadet, yönetme yetkisi, devlet gücü'.",
+    "su": "TDV İSAM Ansiklopedisi: Eski Türkçe sub / suv. Hayat kaynağı, akarsu, ırmak.",
+    "deniz": "TDV İSAM Ansiklopedisi: Eski Türkçe teŋiz. Orhun yazıtlarında teŋiz.",
+    "göz": "TDV İSAM Ansiklopedisi: Eski Türkçe köz / göz. Basar organı.",
+    "el": "TDV İSAM Ansiklopedisi: Eski Türkçe elig (tutma organı) ve el (memleket, devlet).",
+    "ayak": "TDV İSAM Ansiklopedisi: Eski Türkçe adak / adaq. Orhun yazıtlarında adagın yorıtdı."
+  }
+}

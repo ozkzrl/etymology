@@ -1,0 +1,33 @@
+{
+  "_schema": "turkic-etymology-seed/v1",
+  "_provenance": {
+    "source": "Elle derlenmiş İngilizce->Türkçe temel anlam eşlemesi",
+    "kind": "seed",
+    "note": "Wiktionary/Starling gibi İngilizce tanım döndüren kaynakların anlamlarını Türkçeleştirmek için. TAM KELİME eşleşmesi yapılır.",
+    "entry_count": 22
+  },
+  "entries": {
+    "water": "su, sıvı",
+    "sea": "deniz, büyük göl",
+    "lake": "göl",
+    "eye": "göz, görme organı",
+    "foot": "ayak, bacak",
+    "hand / forearm": "el, kol",
+    "head": "baş, kafa, lider",
+    "blood": "kan",
+    "moon": "ay, uydu",
+    "sun": "güneş, gün",
+    "sky": "gök, gökyüzü",
+    "god": "tanrı, ilah",
+    "deity": "tanrı, ilahi varlık",
+    "sign": "işaret, alamet",
+    "mark": "damga, işaret",
+    "alert": "uyanık, tetikte, keskin",
+    "trigger": "tetik mekanizması",
+    "realm": "ülke, il, memleket",
+    "country": "ülke, memleket",
+    "blessing": "kut, bereket, tanrı lütfu",
+    "soul": "can, ruh, kut",
+    "word": "kelime, söz"
+  }
+}

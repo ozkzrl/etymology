@@ -1,0 +1,67 @@
+{
+  "_schema": "turkic-etymology-seed/v1",
+  "_provenance": {
+    "source": "Clauson EDPT, Sevortjan ЭСТЯ ve Starling Altaic veritabanından derlenmiş kök matrisi",
+    "kind": "seed",
+    "note": "Elle derlenmiş kök -> bilinen Türki lehçe biçimleri. TAM kök eşleşmesinde uygulanır; eskiden substring eşleşmesi yapılıyor ve 'usul', 'masum', 'kusur' gibi alâkasız kelimelere 'su' varyantları ekleniyordu.",
+    "entry_count": 6
+  },
+  "entries": {
+    "belge": [
+      "белгі",
+      "белги",
+      "билге",
+      "билдә",
+      "bəlgə",
+      "belgi",
+      "паллӑ",
+      "бэлиэ",
+      "belgü"
+    ],
+    "bilgi": [
+      "білім",
+      "билим",
+      "bilim",
+      "bilik",
+      "biliğ",
+      "билик"
+    ],
+    "deniz": [
+      "dəniz",
+      "теңіз",
+      "деңиз",
+      "тиңез",
+      "тиңис",
+      "deňiz",
+      "тинӗс",
+      "teŋiz"
+    ],
+    "su": [
+      "suw",
+      "су",
+      "суу",
+      "һыу",
+      "шыв",
+      "уу",
+      "суг",
+      "sub",
+      "suv"
+    ],
+    "göz": [
+      "köz",
+      "көз",
+      "күз",
+      "куҫ",
+      "көс",
+      "göŕ"
+    ],
+    "tetik": [
+      "тетік",
+      "тетик",
+      "تتیك",
+      "tətik",
+      "tät-",
+      "tetiq"
+    ]
+  }
+}

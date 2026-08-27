@@ -1,0 +1,49 @@
+{
+  "_schema": "turkic-etymology-seed/v1",
+  "_provenance": {
+    "source": "Yerel Türkoloji kitaplarından elle alınmış alıntılar",
+    "kind": "seed",
+    "note": "Elle derlenmiş TOHUM (seed) veridir; canlı bir servis DEĞİLDİR. Motor çıktısında `origin: \"seed\"` olarak işaretlenir.",
+    "entry_count": 4
+  },
+  "entries": {
+    "deniz": [
+      {
+        "book": "Sir Gerard Clauson - An Etymological Dictionary of Pre-Thirteenth-Century Turkish (PDF)",
+        "page": 527,
+        "text": "teŋiz 'sea, large lake'. Attested in Orkhon Inscriptions (Tonyukuk 19: teŋiz 'deniz')."
+      },
+      {
+        "book": "E. V. Sevortjan - ÉSTJa Etimologičeskij Slovar' Tjurkskikh Jazykov Vol. IV (PDF)",
+        "page": 189,
+        "text": "*teŋiz 'more, ozero, sea'. Common Turkic."
+      }
+    ],
+    "su": [
+      {
+        "book": "Sir Gerard Clauson - An Etymological Dictionary of Pre-Thirteenth-Century Turkish (PDF)",
+        "page": 783,
+        "text": "sub 'water'. Attested in Orkhon Inscriptions (Kültigin E29)."
+      },
+      {
+        "book": "E. V. Sevortjan - ÉSTJa Etimologičeskij Slovar' Tjurkskikh Jazykov Vol. VI (PDF)",
+        "page": 348,
+        "text": "*sub ~ *suv 'voda, reka'."
+      }
+    ],
+    "göz": [
+      {
+        "book": "Andreas Tietze - Tarihi ve Etimolojik Türkiye Türkçesi Sözlüğü Cilt 2 (PDF)",
+        "page": 412,
+        "text": "göz (Eski Türkçe göz / köz kökünden). Görüş organı."
+      }
+    ],
+    "ayak": [
+      {
+        "book": "Sir Gerard Clauson - An Etymological Dictionary of Pre-Thirteenth-Century Turkish (PDF)",
+        "page": 45,
+        "text": "adak 'foot, leg'. Attested in Kültigin E33 (adagın yorıtdı)."
+      }
+    ]
+  }
+}
